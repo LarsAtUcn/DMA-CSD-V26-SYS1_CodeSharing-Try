@@ -27,7 +27,7 @@ public class MainMenu {
                   bookMenu.start();
                   break;
                 case 9:
-                  System.out.println("Denne er ikke implementeret endnu");
+                  createTestData();
                   break;
                 case 0:
                   System.out.println("Tak for denne gang.");
