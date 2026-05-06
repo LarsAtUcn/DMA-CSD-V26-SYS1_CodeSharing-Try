@@ -1,5 +1,7 @@
 package tui;
 import java.util.Scanner;
+import controller.*;
+import model.*;
 
 /**
  * Book menu
@@ -8,11 +10,11 @@ import java.util.Scanner;
  */
 public class BookMenu {
     //Instance variables
+    BookController bookCtrl;
     
     public BookMenu() {
         //Initialize instance variables
-        
-       
+        bookCtrl = new BookController();
     }
 
     public void start() {
@@ -25,10 +27,10 @@ public class BookMenu {
             int choice = writeBookMenu();
             switch (choice) {
                 case 1:
-                  System.out.println(" Denne er ikke implementeret endnu!");
+                  createBook();
                   break;
                 case 2:
-                    System.out.println(" Denne er ikke implementeret endnu!");
+                    createBookCopy();
                     break;
                 case 0:
                   running = false;
@@ -57,6 +59,46 @@ public class BookMenu {
             keyboard.nextLine();
         }
         return keyboard.nextInt();
+    }
+    
+        private void createBook() {
+        Scanner keyboard = new Scanner(System.in);
+        String inTitle;
+        String inAuthor;
+        System.out.print("\n Bogtitel: ");
+        inTitle = keyboard.nextLine();
+        System.out.print("\n Forfatter: ");
+        inAuthor = keyboard.nextLine();
+        Book aBook = bookCtrl.createBook(inTitle, inAuthor);
+        writeBook(aBook);
+    }
+    
+    private void createBookCopy() {
+        Scanner keyboard = new Scanner(System.in);
+        String inTitle;
+        int inNumber;
+        System.out.print("\n Søg bog på bogtitel: ");
+        inTitle = keyboard.nextLine();
+        System.out.print("\n Nr på kopi: ");
+        inNumber = keyboard.nextInt();
+        BookCopy aBookCopy = bookCtrl.createBookCopy(inTitle, inNumber);
+        if (aBookCopy != null) {
+            writeBookCopy(inTitle, aBookCopy);
+        } else {
+            System.out.println("\n Kopi blev IKKE oprettet ");
+        }
+    }
+    
+    private void writeBook(Book inBook) {
+        String bookText = "Book, title = " + inBook.getTitle();
+        bookText += " - author= " + inBook.getAuthor();
+        System.out.println("\n" + bookText);
+    }
+    
+    private void writeBookCopy(String inTitle, BookCopy inBookCopy) {
+        String bookCopyText = "Book, title = " + inTitle;
+        bookCopyText += " - copy number = " + inBookCopy.getCopyNumber();
+        System.out.println("\n" + bookCopyText);        
     }
 
 }
