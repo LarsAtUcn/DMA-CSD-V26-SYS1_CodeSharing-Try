@@ -1,5 +1,6 @@
 package tui;
 import java.util.Scanner;
+import model.*;
 
 /**
  * MainMenu for Code sharing exercise
@@ -7,17 +8,17 @@ import java.util.Scanner;
  * @version 0.1
  */
 public class MainMenu {
-	private BookMenu bookMenu;
+    private BookMenu bookMenu;
 
-	public MainMenu() {
-		bookMenu = new BookMenu();
-	}
-	
-	public void start() {
+    public MainMenu() {
+        bookMenu = new BookMenu();
+    }
+    
+    public void start() {
         mainMenu();
     }
-	
-	private void mainMenu() {
+    
+    private void mainMenu() {
         boolean running = true;
         while (running) {
             int choice = writeMainMenu();
@@ -56,17 +57,38 @@ public class MainMenu {
     }
    
     private void createTestData() {
-    	//Only use classes from model layer
+        //Only use classes from model layer
         //getInstance
+        BookContainer books = BookContainer.getInstance();
         //create some books
-        	//add to book container
-    	//create some copies
-    		//add to book
+        Book book1 = new Book("BlueJ", "Hansen");
+        Book book2 = new Book("UML", "Nielsen");
+        Book book3 = new Book("UP", "Olsen");
+        Book book4 = new Book("SWOT", "Jensen");
+            //add to book container
+        books.addBook(book1);
+        books.addBook(book2);
+        books.addBook(book3);
+        books.addBook(book4);
+        //create some copies
+        BookCopy bookCp1 = new BookCopy(101);
+        BookCopy bookCp2 = new BookCopy(102);
+        BookCopy bookCp3 = new BookCopy(111);
+        BookCopy bookCp4 = new BookCopy(131);
+        BookCopy bookCp5 = new BookCopy(132);
+        BookCopy bookCp6 = new BookCopy(133);
+            //add to book
+        book1.addBookCopy(bookCp1);
+        book1.addBookCopy(bookCp2);
+        book3.addBookCopy(bookCp3);
+        book4.addBookCopy(bookCp4);
+        book4.addBookCopy(bookCp5);
+        book4.addBookCopy(bookCp6);
     }
 
-	public static void main(String[] args) {
-		MainMenu program = new MainMenu();
-		program.start();
-	}
+    public static void main(String[] args) {
+        MainMenu program = new MainMenu();
+        program.start();
+    }
 
 }
